@@ -1,21 +1,20 @@
-# [<img title="waterline-logo" src="http://i.imgur.com/3Xqh6Mz.png" width="810px" alt="Waterline logo"/>](https://github.com/balderdashy/waterline)
+# Shyp's Waterline Fork
 
-[![Build Status](https://travis-ci.org/balderdashy/waterline.png?branch=master)](https://travis-ci.org/balderdashy/waterline) [![NPM version](https://badge.fury.io/js/waterline.png)](http://badge.fury.io/js/waterline) [![Dependency Status](https://gemnasium.com/balderdashy/waterline.png)](https://gemnasium.com/balderdashy/waterline)
+This is Shyp's fork of Waterline. We're going to update this project to use
+a sane subset of the library, specifically:
 
-Waterline is a brand new kind of storage and retrieval engine.
-
-It provides a uniform API for accessing stuff from different kinds of databases, protocols, and 3rd party APIs. That means you write the same code to get and store things like users, whether they live in Redis, mySQL, LDAP, MongoDB, or Postgres.
-
-Waterline strives to inherit the best parts of ORMs like ActiveRecord, Hibernate, and Mongoose, but with a fresh perspective and emphasis on modularity, testability, and consistency across adapters.
-
-For detailed documentation, go to [Waterline Documentation](https://github.com/balderdashy/waterline-docs) repository.
+- Postgres will be the only supported backend
+- Many of the unsafe functions will be removed
+- Lots of extraneous behavior will be removed (dynamic finders etc).
+- Populate/associate will also be removed. They're buggy, if you need a join,
+  just write raw SQL.
 
 ## Installation
 
 Install from NPM.
 
 ```bash
-$ npm install waterline
+npm install waterline
 ```
 
 ## Example
@@ -53,28 +52,7 @@ var User = Waterline.Collection.extend({
 
 ### Adapters Concept
 
-Waterline uses the concept of an Adapter to translate a predefined set of methods into a query that can be understood by your data store. Adapters allow you to use various datastores such as MySQL, PostgreSQL, MongoDB, Redis, etc. and have a clear API for working with your model data.
-
-It also allows an adapter to define it's own methods that don't necessarily fit into the CRUD methods defined by default in Waterline. If an adapter defines a custom method, Waterline will simply pass the function arguments down to the adapter.
-
-**NOTE:** When using custom adapter methods the features of Waterline are not used. You no longer get the Lifecycle Callbacks and Validations as you would when using a defined Waterline method.
-
-You may also supply an array of adapters and Waterline will map out the methods so they are both mixed in. It works similar to Underscore's [Extend](http://underscorejs.org/#extend) method where the last item in the array will override any methods in adapters before it. This allows you to mixin both the traditional CRUD adapters such as MySQL with specialized adapters such as Twilio and have both types of methods available.
-
-#### Community Adapters
-
-  - [PostgreSQL](https://github.com/particlebanana/sails-postgresql) - *0.9+ compatible*
-  - [MySQL](https://github.com/balderdashy/sails-mysql) - *0.9+ compatible*
-  - [MongoDB](https://github.com/balderdashy/sails-mongo) - *0.9+ compatible*
-  - [Memory](https://github.com/balderdashy/sails-memory) - *0.9+ compatible*
-  - [Disk](https://github.com/balderdashy/sails-disk) - *0.9+ compatible*
-  - [Redis](https://github.com/balderdashy/sails-redis)
-  - [Riak](https://github.com/balderdashy/sails-riak)
-  - [IRC](https://github.com/balderdashy/sails-irc)
-  - [Twitter](https://github.com/balderdashy/sails-twitter)
-  - [JSDom](https://github.com/mikermcneil/sails-jsdom)
-  - [Neo4j](https://github.com/natgeo/sails-neo4j)
-  - [FoundationDB SQL Layer](https://github.com/FoundationDB/sql-layer-adapter-sails)
+The only supported adapter is Postgres, all others can and will probably break.
 
 ## Collection
 
