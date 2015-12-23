@@ -39,24 +39,11 @@ describe('Collection Query', function() {
       });
     });
 
-    it('should return a count', function(done) {
+    it('should return an error if you try to get a count', function(done) {
       query.count({ name: 'foo'}, {}, function(err, count) {
-        if(err) return done(err);
-
-        assert(count > 0);
+        assert.deepEqual(err.message, 'count() is unsupported');
         done();
       });
     });
-
-    it('should allow a query to be built using deferreds', function(done) {
-      query.count()
-      .exec(function(err, result) {
-        if(err) return done(err);
-
-        assert(result);
-        done();
-      });
-    });
-
   });
 });
