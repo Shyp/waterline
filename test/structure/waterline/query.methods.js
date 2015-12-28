@@ -63,10 +63,6 @@ describe('Collection', function() {
         assert(typeof person.describe === 'function');
       });
 
-      it('should have .alter() method', function() {
-        assert(typeof person.alter === 'function');
-      });
-
       it('should have .drop() method', function() {
         assert(typeof person.drop === 'function');
       });

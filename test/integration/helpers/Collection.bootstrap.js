@@ -23,7 +23,6 @@ module.exports = function (options) {
       _.merge({
         attributes: {},
         connection: 'my_foo',
-        migrate: 'alter',
         tableName: 'tests',
         schema: false
       }, options.properties || {})

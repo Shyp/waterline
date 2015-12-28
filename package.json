@@ -10,7 +10,6 @@
     "deep-diff": "0.1.7",
     "lodash": "2.4.1",
     "node-switchback": "0.1.2",
-    "prompt": "0.2.14",
     "waterline-criteria": "0.11.1",
     "waterline-schema": "git://github.com/Shyp/waterline-schema.git#v0.2.0"
   },

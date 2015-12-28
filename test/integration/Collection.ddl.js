@@ -1,8 +1,7 @@
-
 var should = require('should');
+
 var bootstrapCollection = require('./helpers/Collection.bootstrap');
 var Adapter = require('./fixtures/adapter.withHandlers.fixture');
-
 
 
 describe('calling describe', function() {
@@ -47,11 +46,6 @@ describe('calling describe', function() {
 
 				schema
 					.should.be.an.Object;
-				schema
-					.should.have.property('name');
-				schema
-					.should.have.property('age');
-
 				done();
 			}
 		});
