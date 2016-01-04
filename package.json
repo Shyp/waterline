@@ -12,7 +12,7 @@
     "node-switchback": "~0.1.0",
     "prompt": "~0.2.12",
     "waterline-criteria": "~0.11.0",
-    "waterline-schema": "~0.1.16"
+    "waterline-schema": "git://github.com/Shyp/waterline-schema.git#shyp-master-0.1.17"
   },
   "devDependencies": {
     "mocha": "^2.3.4",
@@ -21,11 +21,7 @@
   "keywords": [
     "mvc",
     "orm",
-    "mysql",
     "postgresql",
-    "redis",
-    "mongodb",
-    "active-record",
     "waterline",
     "sails",
     "sails.js"
@@ -34,8 +30,7 @@
   "main": "./lib/waterline",
   "scripts": {
     "test": "mocha test --recursive",
-    "prepublish": "npm prune",
-    "browserify": "rm -rf .dist && mkdir .dist && browserify lib/waterline.js -s Waterline | uglifyjs > .dist/waterline.min.js"
+    "prepublish": "npm prune"
   },
   "engines": {
     "node": "*"
