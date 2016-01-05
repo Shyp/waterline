@@ -91,21 +91,9 @@ describe('Collection', function() {
       });
     });
 
-    describe('Composite Functions', function() {
-
-      it('should have .findOrCreate() method', function() {
-        assert(typeof person.findOrCreate === 'function');
-      });
-    });
-
     describe('Aggregate Functions', function() {
-
       it('should have .createEach() method', function() {
         assert(typeof person.createEach === 'function');
-      });
-
-      it('should have .findOrCreateEach() method', function() {
-        assert(typeof person.findOrCreateEach === 'function');
       });
     });
 
