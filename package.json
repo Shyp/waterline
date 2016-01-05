@@ -1,7 +1,7 @@
 {
   "name": "waterline",
   "description": "An ORM for Node.js and the Sails framework",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "homepage": "https://github.com/Shyp/waterline",
   "dependencies": {
     "anchor": "git://github.com/Shyp/anchor.git#shyp-master-0.10.2",
