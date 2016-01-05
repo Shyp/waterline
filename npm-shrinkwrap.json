@@ -152,8 +152,8 @@
       }
     },
     "waterline-schema": {
-      "version": "0.1.17",
-      "resolved": "git://github.com/Shyp/waterline-schema.git#2c228532f3d480b6dc2bfdd5911d10015abc515d"
+      "version": "0.2.0",
+      "resolved": "git://github.com/Shyp/waterline-schema.git#d1a33deea5fe67bff40934e962f4aff4d11b671a"
     }
   }
 }

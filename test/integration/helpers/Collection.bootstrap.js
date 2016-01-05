@@ -23,6 +23,7 @@ module.exports = function (options) {
       _.merge({
         attributes: {},
         connection: 'my_foo',
+        migrate: 'alter',
         tableName: 'tests',
         schema: false
       }, options.properties || {})
@@ -39,7 +40,7 @@ module.exports = function (options) {
 
     waterline.initialize({ adapters: { barbaz: options.adapter }, connections: connections }, function(err, ocean) {
       if (err) return done(err);
-      
+
       // Save access to all collections + connections
       self.ocean = ocean;
 
