@@ -40,9 +40,6 @@ describe('Core Lifecycle Callbacks', function() {
       assert(Array.isArray(person._callbacks.beforeValidate));
       assert(typeof person._callbacks.beforeValidate[0] === 'function');
 
-      assert(Array.isArray(person._callbacks.afterValidate));
-      assert(typeof person._callbacks.afterValidate[0] === 'function');
-
       assert(Array.isArray(person._callbacks.beforeUpdate));
       assert(typeof person._callbacks.beforeUpdate[0] === 'function');
 
