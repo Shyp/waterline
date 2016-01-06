@@ -52,9 +52,6 @@ describe('Core Lifecycle Callbacks', function() {
       assert(Array.isArray(person._callbacks.beforeCreate));
       assert(typeof person._callbacks.beforeCreate[0] === 'function');
 
-      assert(Array.isArray(person._callbacks.afterCreate));
-      assert(typeof person._callbacks.afterCreate[0] === 'function');
-
       assert(Array.isArray(person._callbacks.beforeDestroy));
       assert(typeof person._callbacks.beforeDestroy[0] === 'function');
 

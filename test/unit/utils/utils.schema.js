@@ -106,7 +106,6 @@ describe('Schema utilities', function() {
       });
 
       it('should normalize to callback array', function() {
-        assert(Array.isArray(callbacks.afterCreate));
         assert(Array.isArray(callbacks.beforeCreate));
       });
     });
@@ -133,12 +132,10 @@ describe('Schema utilities', function() {
       });
 
       it('should normalize to callback array', function() {
-        assert(Array.isArray(callbacks.afterCreate));
         assert(Array.isArray(callbacks.beforeCreate));
       });
 
       it('should retain all callback functions', function() {
-        assert(callbacks.afterCreate.length === 1);
         assert(callbacks.beforeCreate.length === 2);
       });
     });
@@ -172,12 +169,10 @@ describe('Schema utilities', function() {
       });
 
       it('should normalize to callback array', function() {
-        assert(Array.isArray(callbacks.afterCreate));
         assert(Array.isArray(callbacks.beforeCreate));
       });
 
       it('should map all callback functions', function() {
-        assert(callbacks.afterCreate[0] === fn_2);
         assert(callbacks.beforeCreate[0] === fn_1);
       });
     });
@@ -209,14 +204,6 @@ describe('Schema utilities', function() {
         callbacks = utils.normalizeCallbacks(model);
       });
 
-      it('should normalize to callback array', function() {
-        assert(Array.isArray(callbacks.afterCreate));
-      });
-
-      it('should map all callback functions', function() {
-        assert(callbacks.afterCreate[0] === fn_1);
-        assert(callbacks.afterCreate[1] === fn_2);
-      });
     });
   });
 
