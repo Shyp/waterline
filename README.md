@@ -1,20 +1,22 @@
 # Shyp's Waterline Fork
 
-This is Shyp's fork of Waterline. We're going to update this project to use
-a sane subset of the library, specifically:
+This is Shyp's fork of Waterline. Currently this differs from upstream
+Waterline in the following ways:
 
-- Postgres will be the only supported backend
-- Many of the unsafe functions will be removed
-- Lots of extraneous behavior will be removed (dynamic finders etc).
-- Populate/associate will also be removed. They're buggy, if you need a join,
-  just write raw SQL.
+- Postgres is the only supported backend
+- count() is removed
+- findOrCreate() is removed
+- dynamic finders are removed
+- many to many is not supported
+- hasManyThrough is not supported
+- `'alter'` is no longer an option (write SQL separately from Waterline).
 
 ## Installation
 
 Install from NPM.
 
 ```bash
-npm install waterline
+npm install waterline@git://github.com/Shyp/waterline.git
 ```
 
 ## Example
@@ -86,7 +88,8 @@ The following attribute types are currently available:
   - datetime
   - boolean
   - binary
-  - array
+  - array. NOTE this will actually create a TEXT and serialize it with
+        JSON.stringify. Strongly consider deserializing your data.
   - json
 
 #### Example Collection
@@ -145,11 +148,9 @@ var User = Waterline.Collection.extend({
    * Run before and after various stages:
    *
    * beforeValidate
-   * afterValidate
    * beforeUpdate
    * afterUpdate
    * beforeCreate
-   * afterCreate
    * beforeDestroy
    * afterDestroy
    */
@@ -281,33 +282,15 @@ Each of the following basic methods are available by default on a Collection ins
   - create
   - update
   - destroy
-  - count
 
 In addition you also have the following helper methods:
 
   - createEach
-  - findOrCreateEach
-  - findOrCreate
   - findOneLike
   - findLike
   - startsWith
   - endsWith
   - contains
-
-Based on your Collection attributes you also have dynamic finders. So given a `name` attribute the following queries will be available:
-
-  - findOneByName
-  - findOneByNameIn
-  - findOneByNameLike
-  - findByName
-  - findByNameIn
-  - findByNameLike
-  - countByName
-  - countByNameIn
-  - countByNameLike
-  - nameStartsWith
-  - nameEndsWith
-  - nameContains
 
 ## Pagination
 
@@ -364,11 +347,12 @@ User.find()
 });
 ```
 
+Do NOT allow users to define the `sort` field.
 
 ## Validations
 
-Validations are handled by [Anchor](https://github.com/balderdashy/anchor) which is based off of [Node Validate](https://github.com/chriso/node-validator) and supports most of the properties in node-validate.
-For a full list of validations see: [Anchor Validations](https://github.com/balderdashy/anchor/blob/master/lib/match/rules.js).
+Validations are handled by [Anchor](https://github.com/Shyp/anchor) which is based off of [Node Validate](https://github.com/chriso/node-validator) and supports most of the properties in node-validate.
+For a full list of validations see: [Anchor Validations](https://github.com/Shyp/anchor/blob/master/lib/match/rules.js).
 
 Validations are defined directly in you Collection attributes. In addition you may set the attribute `type` to any supported Anchor type and Waterline will build a validation and set the schema type as a string for that attribute.
 
@@ -507,12 +491,10 @@ Lifecycle callbacks are functions you can define to run at certain times in a qu
   - beforeValidate / *fn(values, cb)*
   - afterValidate / *fn(values, cb)*
   - beforeCreate / *fn(values, cb)*
-  - afterCreate / *fn(newlyInsertedRecord, cb)*
 
 **Callbacks run on Update**
 
   - beforeValidate / *fn(valuesToUpdate, cb)*
-  - afterValidate / *fn(valuesToUpdate, cb)*
   - beforeUpdate / *fn(valuesToUpdate, cb)*
   - afterUpdate / *fn(updatedRecord, cb)*
 
