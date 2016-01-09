@@ -26,9 +26,8 @@ describe('validations', function() {
     });
 
     it('should error if incorrect email is passed', function(done) {
-      validator.validate({ email: 'foobar' }, function(errors) {
-        assert(errors);
-        assert(errors.email);
+      validator.validate({ email: 'foobar' }, function(error) {
+        error.message.should.equal("`email` should be a email (instead of \"foobar\", which is a string)");
         done();
       });
     });

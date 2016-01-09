@@ -1,5 +1,7 @@
-var Waterline = require('../../lib/waterline'),
-    assert = require('assert');
+var assert = require('assert');
+require('should');
+
+var Waterline = require('../../lib/waterline');
 
 describe('Waterline Collection', function() {
 
@@ -73,8 +75,7 @@ describe('Waterline Collection', function() {
     it('should error with invalid data', function(done) {
       User.create({ name: '', email: 'foobar@gmail.com'}, function(err, user) {
         assert(!user);
-        assert(err.ValidationError);
-        assert(err.ValidationError.name[0].rule === 'required');
+        err.message.should.equal("\"required\" validation rule failed for input: ''");
         done();
       });
     });
@@ -90,8 +91,7 @@ describe('Waterline Collection', function() {
     it('should error with invalid enums on strings', function(done) {
       User.create({ name: 'foo', sex: 'other' }, function(err, user) {
         assert(!user);
-        assert(err.ValidationError);
-        assert(err.ValidationError.sex[0].rule === 'in');
+        err.message.should.equal("\"in\" validation rule failed for input: 'other'");
         done();
       });
     });
@@ -106,8 +106,7 @@ describe('Waterline Collection', function() {
     it('should error with invalid username', function(done) {
       User.create({ name: 'foo', username: 'baseball_dude' }, function(err, user) {
         assert(!user);
-        assert(err.ValidationError);
-        assert(err.ValidationError.username[0].rule === 'contains');
+        err.message.should.equal("\"contains\" validation rule failed for input: 'baseball_dude'");
         done();
       });
     });
@@ -122,8 +121,7 @@ describe('Waterline Collection', function() {
     it('should error with invalid input for custom type', function(done) {
       User.create({ name: 'foo', sex: 'male', password: 'passW0rd' }, function(err, user) {
         assert(!user);
-        assert(err.ValidationError);
-        assert(err.ValidationError.password[0].rule === 'password');
+        err.message.should.equal("`password` should be a password (instead of \"passW0rd\", which is a string)");
         done();
       });
     });

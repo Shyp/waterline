@@ -34,9 +34,8 @@ describe('validations', function() {
     });
 
     it('should error if string passed to integer type', function(done) {
-      validator.validate({ age: 'foo bar' }, function(errors) {
-        errors.age.length.should.equal(1);
-        errors.age[0].message.should.equal('`age` should be a integer (instead of "foo bar", which is a string)');
+      validator.validate({ age: 'foo bar' }, function(error) {
+        error.message.should.equal('`age` should be a integer (instead of "foo bar", which is a string)');
         done();
       });
     });

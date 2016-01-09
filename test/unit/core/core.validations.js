@@ -104,20 +104,14 @@ describe('Core Validator', function() {
     it('should validate types', function(done) {
       person._validator.validate({ first_name: 27, last_name: 32 }, function(err) {
         assert(err);
-        assert(err.first_name);
-        assert(err.last_name);
-        assert(err.first_name[0].rule === 'string');
-        assert(err.last_name[0].rule === 'string');
+        err.message.should.equal("`first_name` should be a string (instead of \"27\", which is a number)");
         done();
       });
     });
 
     it('should validate required status', function(done) {
       person._validator.validate({ first_name: 'foo' }, function(err) {
-        assert(err);
-        assert(err);
-        assert(err.last_name);
-        assert(err.last_name[1].rule === 'required');
+        err.message.should.equal("`last_name` should be a string (instead of null)");
         done();
       });
     });

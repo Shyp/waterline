@@ -20,10 +20,8 @@ describe('validations', function() {
     });
 
     it('should error if invalid enum is set', function(done) {
-      validator.validate({ sex: 'other' }, function(errors) {
-        assert(errors);
-        assert(errors.sex);
-        assert(errors.sex[0].rule === 'in');
+      validator.validate({ sex: 'other' }, function(error) {
+        error.message.should.equal("\"in\" validation rule failed for input: 'other'");
         done();
       });
     });

@@ -22,7 +22,7 @@ describe('validations', function() {
           type: 'string',
           contains: function(cb) {
             setTimeout(function() {
-              return cb('http://')
+              return cb('http://');
             },1);
           }
         }
@@ -33,10 +33,8 @@ describe('validations', function() {
     });
 
     it('should error if invalid username is set', function(done) {
-      validator.validate({ name: 'Bob', username: 'bobby' }, function(errors) {
-        assert(errors);
-        assert(errors.username);
-        assert(errors.username[0].rule === 'equals');
+      validator.validate({ name: 'Bob', username: 'bobby' }, function(error) {
+        error.message.should.equal("\"equals\" validation rule failed for input: 'bobby'");
         done();
       });
     });
@@ -49,10 +47,8 @@ describe('validations', function() {
     });
 
     it('should error if invalid website is set', function(done) {
-      validator.validate({ website: 'www.google.com' }, function(errors) {
-        assert(errors);
-        assert(errors.website);
-        assert(errors.website[0].rule === 'contains');
+      validator.validate({ website: 'www.google.com' }, function(error) {
+        error.message.should.equal("\"contains\" validation rule failed for input: 'www.google.com'");
         done();
       });
     });

@@ -27,39 +27,31 @@ describe('validations', function() {
     });
 
     it('should error if no value is set for required string field', function(done) {
-      validator.validate({ name: '', employed: true, age: 27 }, function(errors) {
-        errors.name.length.should.equal(1);
-        errors.name[0].message.should.equal("\"required\" validation rule failed for input: ''");
-        assert(errors.name[0].rule === 'required');
+      validator.validate({ name: '', employed: true, age: 27 }, function(error) {
+        error.should.have.properties({
+          message: "\"required\" validation rule failed for input: ''",
+          rule: 'required',
+          data: '',
+        });
         done();
       });
     });
 
     it('should error if null is set for required string field', function(done) {
-      validator.validate({ name: null, employed: true, age: 27 }, function(errors) {
-        errors.name.length.should.equal(2);
-        errors.name[0].message.should.equal("`name` should be a string (instead of null)");
-        errors.name[0].rule.should.equal('string');
+      validator.validate({ name: null, employed: true, age: 27 }, function(error) {
+        error.should.have.properties({
+          message: "`name` should be a string (instead of null)",
+          data: null,
+          actualType: 'object',
+          expectedType: 'string',
+        });
         done();
       });
     });
 
     it('should error if no value is set for required boolean field', function(done) {
-      validator.validate({ name: 'Frederick P. Frederickson', age: 27 }, function(errors) {
-        assert(errors);
-        assert(errors.employed);
-        assert(errors.employed[0].rule === 'boolean');
-        assert(errors.employed[1].rule === 'required');
-        done();
-      });
-    });
-
-    it('should error if no value is set for required boolean field', function(done) {
-      validator.validate({ name: 'Frederick P. Frederickson', age: 27 }, function(errors) {
-        assert(errors);
-        assert(errors.employed);
-        assert(errors.employed[0].rule === 'boolean');
-        assert(errors.employed[1].rule === 'required');
+      validator.validate({ name: 'Frederick P. Frederickson', age: 27 }, function(error) {
+        error.message.should.equal("`employed` should be a boolean (instead of null)");
         done();
       });
     });
