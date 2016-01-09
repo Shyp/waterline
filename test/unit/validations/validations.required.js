@@ -1,5 +1,7 @@
-var Validator = require('../../../lib/waterline/core/validations'),
-    assert = require('assert');
+var assert = require('assert');
+require('should');
+
+var Validator = require('../../../lib/waterline/core/validations');
 
 describe('validations', function() {
 
@@ -26,9 +28,18 @@ describe('validations', function() {
 
     it('should error if no value is set for required string field', function(done) {
       validator.validate({ name: '', employed: true, age: 27 }, function(errors) {
-        assert(errors);
-        assert(errors.name);
+        errors.name.length.should.equal(1);
+        errors.name[0].message.should.equal("\"required\" validation rule failed for input: ''");
         assert(errors.name[0].rule === 'required');
+        done();
+      });
+    });
+
+    it('should error if null is set for required string field', function(done) {
+      validator.validate({ name: null, employed: true, age: 27 }, function(errors) {
+        errors.name.length.should.equal(2);
+        errors.name[0].message.should.equal("`name` should be a string (instead of null)");
+        errors.name[0].rule.should.equal('string');
         done();
       });
     });

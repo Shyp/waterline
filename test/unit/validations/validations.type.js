@@ -1,5 +1,7 @@
-var Validator = require('../../../lib/waterline/core/validations'),
-    assert = require('assert');
+var assert = require('assert');
+require('should');
+
+var Validator = require('../../../lib/waterline/core/validations');
 
 describe('validations', function() {
 
@@ -33,12 +35,11 @@ describe('validations', function() {
 
     it('should error if string passed to integer type', function(done) {
       validator.validate({ age: 'foo bar' }, function(errors) {
-        assert(errors);
-        assert(errors.age);
+        errors.age.length.should.equal(1);
+        errors.age[0].message.should.equal('`age` should be a integer (instead of "foo bar", which is a string)');
         done();
       });
     });
 
   });
-
 });
