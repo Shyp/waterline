@@ -72,6 +72,14 @@ describe('Collection Query', function() {
           done();
         });
       });
+
+      it('should not mutate the input object', function(done) {
+        inputObject = { name: 'foo', nestedModel: { id: 1337, name: 'joe' }}
+        query.update({}, inputObject, function(err, status) {
+          inputObject.should.eql({ name: 'foo', nestedModel: { id: 1337, name: 'joe' }})
+          done();
+        });
+      });
     });
 
     describe('with nested collection values', function() {

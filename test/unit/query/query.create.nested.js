@@ -72,6 +72,14 @@ describe('Collection Query', function() {
           done();
         });
       });
+
+      it('should not mutate the input object', function(done) {
+        inputObject = { name: 'foo', nestedModel: { name: 'joe' }};
+        query.create(inputObject, function(err, status) {
+          inputObject.should.eql ({ name: 'foo', nestedModel: { name: 'joe' }});
+          done();
+        });
+      });
     });
 
     describe('with nested collection values', function() {
@@ -150,6 +158,29 @@ describe('Collection Query', function() {
           assert(!err);
           assert(status.nestedModels.length === 0);
           assert(findValues.length === 4);
+          done();
+        });
+      });
+
+      it('should not mutate any of the models', function(done) {
+
+        var nestedModels = [
+          { name: 'joe', model: 2 },
+          { name: 'moe', model: 3 },
+          { name: 'flow', model: 4 }
+        ];
+
+        inputObject = { id: 5, name: 'foo', nestedModels: nestedModels };
+        query.create(inputObject, function(err, status) {
+          inputObject.should.eql(
+            { id: 5,
+              name: 'foo',
+              nestedModels: [
+                { name: 'joe', model: 2 },
+                { name: 'moe', model: 3 },
+                { name: 'flow', model: 4 }
+              ]
+            });
           done();
         });
       });

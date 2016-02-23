@@ -1,5 +1,6 @@
 var Waterline = require('../../../lib/waterline'),
-    assert = require('assert');
+    assert = require('assert'),
+    should = require('should');
 
 describe('Collection Query', function() {
 
@@ -106,6 +107,13 @@ describe('Collection Query', function() {
         });
       });
 
+      it ('should not mutate the input object', function(done) {
+        inputObject = { name: 'Bob' };
+        query.create(inputObject, function(err, status) {
+          inputObject.should.eql ({ name: 'Bob' });
+          done();
+        });
+      });
     });
 
     describe('override auto values', function() {
@@ -152,6 +160,14 @@ describe('Collection Query', function() {
         query.create({}, function(err, status) {
           assert(!status.createdAt);
           assert(!status.updatedAt);
+          done();
+        });
+      });
+
+      it ('should not mutate the input object', function(done) {
+        inputObject = { name: 'Bob' };
+        query.create(inputObject, function(err, status) {
+          inputObject.should.eql ({ name: 'Bob' });
           done();
         });
       });
