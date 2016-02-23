@@ -30,9 +30,9 @@ describe('Waterline Collection', function() {
             type: 'email'
           },
 
-          sex: {
+          emailType: {
             type: 'string',
-            enum: ['male', 'female']
+            enum: ['work', 'personal']
           },
 
           username: {
@@ -75,23 +75,23 @@ describe('Waterline Collection', function() {
     it('should error with invalid data', function(done) {
       User.create({ name: '', email: 'foobar@gmail.com'}, function(err, user) {
         assert(!user);
-        err.message.should.equal("\"required\" validation rule failed for input: ''");
+        err.message.should.equal('No name was provided. Please provide a name');
         done();
       });
     });
 
     it('should support valid enums on strings', function(done) {
-      User.create({ name: 'foo', sex: 'male' }, function(err, user) {
+      User.create({ name: 'foo', emailType: 'work' }, function(err, user) {
         assert(!err);
-        assert(user.sex === 'male');
+        assert(user.emailType === 'work');
         done();
       });
     });
 
     it('should error with invalid enums on strings', function(done) {
-      User.create({ name: 'foo', sex: 'other' }, function(err, user) {
+      User.create({ name: 'foo', emailType: 'other' }, function(err, user) {
         assert(!user);
-        err.message.should.equal("\"in\" validation rule failed for input: 'other'");
+        err.message.should.equal("Invalid emailType. Input failed in validation: \'other\'");
         done();
       });
     });
@@ -106,20 +106,20 @@ describe('Waterline Collection', function() {
     it('should error with invalid username', function(done) {
       User.create({ name: 'foo', username: 'baseball_dude' }, function(err, user) {
         assert(!user);
-        err.message.should.equal("\"contains\" validation rule failed for input: 'baseball_dude'");
+        err.message.should.equal("Invalid username. Input failed contains validation: \'baseball_dude\'");
         done();
       });
     });
 
     it('should support custom type functions with the model\'s context', function(done) {
-      User.create({ name: 'foo', sex: 'male', password: 'passW0rd', passwordConfirmation: 'passW0rd' }, function(err, user) {
+      User.create({ name: 'foo', emailType: 'work', password: 'passW0rd', passwordConfirmation: 'passW0rd' }, function(err, user) {
         assert(!err);
         done();
       });
     });
 
     it('should error with invalid input for custom type', function(done) {
-      User.create({ name: 'foo', sex: 'male', password: 'passW0rd' }, function(err, user) {
+      User.create({ name: 'foo', emailType: 'work', password: 'passW0rd' }, function(err, user) {
         assert(!user);
         err.message.should.equal("`password` should be a password (instead of \"passW0rd\", which is a string)");
         done();

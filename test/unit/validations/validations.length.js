@@ -34,7 +34,7 @@ describe('validations', function() {
 
       it('should error if length is shorter', function(done) {
         validator.validate({ firstName: 'f' }, function(error) {
-          error.message.should.equal("\"minLength\" validation rule failed for input: 'f'");
+          error.message.should.equal("Invalid firstName. Input failed minLength validation: \'f\'");
           done();
         });
       });
@@ -51,7 +51,7 @@ describe('validations', function() {
 
       it('should error if length is longer', function(done) {
         validator.validate({ lastName: 'foobar' }, function(error) {
-          error.message.should.equal("\"maxLength\" validation rule failed for input: 'foobar'");
+          error.message.should.equal("Invalid lastName. Input failed maxLength validation: \'foobar\'");
           done();
         });
       });

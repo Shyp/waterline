@@ -15,8 +15,8 @@
       "version": "2.4.1"
     },
     "lusitania": {
-      "version": "2.0.0",
-      "resolved": "git+https://github.com/Shyp/lusitania.git#b3811c273432370676e1110d3de09946a685ef22",
+      "version": "2.2.0",
+      "resolved": "git+https://github.com/Shyp/lusitania.git#98ca16abd38c9b6b861b13667693c9058b41545c",
       "dependencies": {
         "validator": {
           "version": "3.22.2"

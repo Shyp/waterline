@@ -29,7 +29,7 @@ describe('validations', function() {
     it('should error if no value is set for required string field', function(done) {
       validator.validate({ name: '', employed: true, age: 27 }, function(error) {
         error.should.have.properties({
-          message: "\"required\" validation rule failed for input: ''",
+          message: "No name was provided. Please provide a name",
           rule: 'required',
           data: '',
         });

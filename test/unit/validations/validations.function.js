@@ -34,7 +34,7 @@ describe('validations', function() {
 
     it('should error if invalid username is set', function(done) {
       validator.validate({ name: 'Bob', username: 'bobby' }, function(error) {
-        error.message.should.equal("\"equals\" validation rule failed for input: 'bobby'");
+        error.message.should.equal("Invalid username. Input failed equals validation: \'bobby\'");
         done();
       });
     });
@@ -48,7 +48,7 @@ describe('validations', function() {
 
     it('should error if invalid website is set', function(done) {
       validator.validate({ website: 'www.google.com' }, function(error) {
-        error.message.should.equal("\"contains\" validation rule failed for input: 'www.google.com'");
+        error.message.should.equal("Invalid website. Input failed contains validation: \'www.google.com\'");
         done();
       });
     });

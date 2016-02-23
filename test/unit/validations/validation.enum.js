@@ -1,5 +1,6 @@
-var Validator = require('../../../lib/waterline/core/validations'),
-    assert = require('assert');
+var assert = require('assert');
+
+var Validator = require('../../../lib/waterline/core/validations');
 
 describe('validations', function() {
 
@@ -9,9 +10,9 @@ describe('validations', function() {
     before(function() {
 
       var validations = {
-        sex: {
+        emailType: {
           type: 'string',
-          in: ['male', 'female']
+          in: ['work', 'personal'],
         }
       };
 
@@ -20,15 +21,15 @@ describe('validations', function() {
     });
 
     it('should error if invalid enum is set', function(done) {
-      validator.validate({ sex: 'other' }, function(error) {
-        error.message.should.equal("\"in\" validation rule failed for input: 'other'");
+      validator.validate({ emailType: 'other' }, function(error) {
+        error.message.should.equal("Invalid emailType. Input failed in validation: \'other\'");
         done();
       });
     });
 
     it('should NOT error if valid enum is set', function(done) {
-      validator.validate({ sex: 'male' }, function(errors) {
-        assert(!errors);
+      validator.validate({ emailType: 'personal' }, function(err) {
+        assert.ifError(err);
         done();
       });
     });
