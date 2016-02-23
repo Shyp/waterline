@@ -1,5 +1,6 @@
 var Waterline = require('../../../lib/waterline'),
-    assert = require('assert');
+    assert = require('assert'),
+    should = require('should');
 
 describe('.beforeCreate()', function() {
 
@@ -50,6 +51,14 @@ describe('.beforeCreate()', function() {
         person.create({ name: 'test' }, function(err, user) {
           assert(!err);
           assert(user.name === 'test updated');
+          done();
+        });
+      });
+
+      it('should run beforeCreate and does not mutate input values', function(done) {
+        inputObject = { name: 'test' };
+        person.create(inputObject, function(err, user) {
+          inputObject.should.eql({ name: 'test' });
           done();
         });
       });
