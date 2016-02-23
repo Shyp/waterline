@@ -1,4 +1,4 @@
-.PHONY: install test bail
+.PHONY: install test bail clean
 
 install:
 	npm install
@@ -8,3 +8,6 @@ test:
 
 bail:
 	mocha test --recursive --bail
+
+clean:
+	rm -rf node_modules

@@ -59,6 +59,17 @@ describe('instance methods', function() {
       });
     });
 
+    it('should not include the primary key', function(done) {
+      var person = new model({ id: 1, name: 'original-value' });
+
+      person.name = 'only-id';
+
+      person.save(function(err) {
+        assert.deepEqual(updateValues, {name: 'only-id'});
+        done();
+      });
+    });
+
     it('should return a promise', function(done) {
       var person = new model({ id: 1, name: 'foo' });
 
