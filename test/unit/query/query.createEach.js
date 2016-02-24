@@ -129,6 +129,14 @@ describe('Collection Query', function() {
           done();
         });
       });
+
+      it('should not mutate the input array', function(done) {
+        inputArray = [{}, {}];
+        query.createEach(inputArray, function(err, values) {
+          inputObject.should.eql [{}, {}]
+          done();
+        });
+      });
     });
 
     describe('casting values', function() {

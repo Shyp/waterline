@@ -84,6 +84,13 @@ describe('Collection Query', function() {
         });
       });
 
+      it('should not mutate the input object', function(done) {
+        inputObject = { name: 'foo'}
+        query.update({}, inputObject, function(err, status) {
+          inputObject.should.eql({ name: 'foo'});
+          done();
+        });
+      });
     });
 
     describe('casting values', function() {
