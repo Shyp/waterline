@@ -42,6 +42,14 @@
     "waterline-schema": {
       "version": "0.2.0",
       "resolved": "git://github.com/Shyp/waterline-schema.git#d1a33deea5fe67bff40934e962f4aff4d11b671a"
+    },
+    "debug": {
+      "version": "2.2.0",
+      "dependencies": {
+        "ms": {
+          "version": "0.7.1"
+        }
+      }
     }
   }
 }

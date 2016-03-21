@@ -6,6 +6,7 @@
   "dependencies": {
     "async": "0.9.0",
     "bluebird": "2.9.24",
+    "debug": "2.2.0",
     "deep-diff": "0.1.7",
     "lodash": "2.4.1",
     "lusitania": "git+https://github.com/Shyp/lusitania.git#v2.0.0",
