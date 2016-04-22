@@ -33,4 +33,63 @@ describe("Normalize utility", function() {
 
   });
 
+  describe(".expandPK()", function() {
+    it("casts integers", function() {
+      var context = {
+        attributes: {
+          id: {
+            type: 'integer',
+            primaryKey: true
+          }
+        }
+      };
+
+      var options = {
+        id: '123'
+      }
+
+      var result = normalize.expandPK(context, options);
+
+      assert(result.id === 123);
+    });
+
+    it("casts uuids", function() {
+      var context = {
+        attributes: {
+          id: {
+            type: 'uuid',
+            primaryKey: true
+          }
+        }
+      };
+
+      var options = {
+        id: 'prefix_0b6c28e0-a117-4a9e-9a0d-60f0992edbee'
+      }
+
+      var result = normalize.expandPK(context, options);
+
+      assert(result.id === '0b6c28e0-a117-4a9e-9a0d-60f0992edbee');
+    });
+
+    it("casts uuids with capitals", function() {
+      var context = {
+        attributes: {
+          id: {
+            type: 'uuid',
+            primaryKey: true
+          }
+        }
+      };
+
+      var options = {
+        id: '0B6C28E0-A117-4A9E-9A0D-60F0992EDBEE'
+      }
+
+      var result = normalize.expandPK(context, options);
+
+      assert(result.id === '0B6C28E0-A117-4A9E-9A0D-60F0992EDBEE');
+    });
+  });
+
 });
