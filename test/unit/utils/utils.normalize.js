@@ -90,6 +90,31 @@ describe("Normalize utility", function() {
 
       assert(result.id === '0B6C28E0-A117-4A9E-9A0D-60F0992EDBEE');
     });
+
+    it("throws a TypeError when attempting to cast a non-uuid", function() {
+      var context = {
+        attributes: {
+          id: {
+            type: 'uuid',
+            primaryKey: true
+          }
+        }
+      };
+
+      var options = {
+        id: 'hello'
+      }
+
+      try {
+        normalize.expandPK(context, options);
+        throw new Error('wrong error');
+      } catch (e) {
+        assert(e);
+        assert(e instanceof TypeError);
+        assert(e.message === "value 'hello' cannot be coerced to UUID");
+      }
+
+    });
   });
 
 });
