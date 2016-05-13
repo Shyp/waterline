@@ -4,7 +4,7 @@ var Waterline = require('../../../lib/waterline'),
 describe('Collection Query', function() {
 
   describe('.find()', function() {
-    var query;
+    var query, queryOnUUID;
 
     before(function(done) {
 
@@ -21,7 +21,24 @@ describe('Collection Query', function() {
         }
       });
 
+      var ModelWithUUID = Waterline.Collection.extend({
+        identity: 'user_with_uuid',
+        connection: 'foo',
+        attributes: {
+          id: {
+            type: 'uuid',
+            primaryKey: true
+          },
+          name: {
+            type: 'string',
+            defaultsTo: 'Foo Bar'
+          },
+          doSomething: function() {}
+        }
+      });
+
       waterline.loadCollection(Model);
+      waterline.loadCollection(ModelWithUUID);
 
       // Fixture Adapter Def
       var adapterDef = { find: function(con, col, criteria, cb) { return cb(null, [criteria]); }};
@@ -35,6 +52,7 @@ describe('Collection Query', function() {
       waterline.initialize({ adapters: { foobar: adapterDef }, connections: connections }, function(err, colls) {
         if(err) return done(err);
         query = colls.collections.user;
+        queryOnUUID = colls.collections.user_with_uuid;
         done();
       });
     });
@@ -77,6 +95,17 @@ describe('Collection Query', function() {
         assert(results[0].limit == 1);
         assert(results[0].skip == 1);
         assert(results[0].sort.name == -1);
+
+        done();
+      });
+    });
+
+    it('should coerce uuid primary keys when using deferreds', function(done) {
+      queryOnUUID.find()
+      .where({ id: 'foo_b0aec906-81d1-401b-8622-2b01036793d5' })
+      .exec(function(err, results) {
+        assert(!err);
+        assert(results[0].where.id == 'b0aec906-81d1-401b-8622-2b01036793d5');
 
         done();
       });
