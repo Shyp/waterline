@@ -60,6 +60,11 @@ describe("Normalize utility", function() {
             type: 'uuid',
             primaryKey: true
           }
+        },
+        schema: {
+          id: {
+            type: 'uuid'
+          }
         }
       };
 
@@ -79,6 +84,11 @@ describe("Normalize utility", function() {
             type: 'uuid',
             primaryKey: true
           }
+        },
+        schema: {
+          id: {
+            type: 'uuid'
+          }
         }
       };
 
@@ -91,12 +101,42 @@ describe("Normalize utility", function() {
       assert(result.id === '0B6C28E0-A117-4A9E-9A0D-60F0992EDBEE');
     });
 
+    it("does not cast uuids with an underlying non-uuid type", function() {
+      var context = {
+        attributes: {
+          id: {
+            type: 'uuid',
+            primaryKey: true
+          }
+        },
+        schema: {
+          id: {
+            type: 'text'
+          }
+        }
+      };
+
+      var options = {
+        id: 'prefix_0b6c28e0-a117-4a9e-9a0d-60f0992edbee'
+      }
+
+      var result = normalize.expandPK(context, options);
+
+      assert(result.id === 'prefix_0b6c28e0-a117-4a9e-9a0d-60f0992edbee');
+
+    });
+
     it("throws a TypeError when attempting to cast a non-uuid", function() {
       var context = {
         attributes: {
           id: {
             type: 'uuid',
             primaryKey: true
+          }
+        },
+        schema: {
+          id: {
+            type: 'uuid'
           }
         }
       };
