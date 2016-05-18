@@ -82,6 +82,16 @@ describe('Collection Query', function() {
       });
     });
 
+    it('should normalize primary keys when using deferreds', function(done) {
+      query.find()
+      .where({ id: '123' })
+      .exec(function(err, results) {
+        assert(!err);
+        assert(results[0].where.id === 123);
+        done();
+      });
+    });
+
     describe('.paginate()', function() {
       it('should skip to 0 and limit to 10 by default', function(done) {
         query.find()
