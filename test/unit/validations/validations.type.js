@@ -12,7 +12,8 @@ describe('validations', function() {
 
       var validations = {
         name: { type: 'string' },
-        age: { type: 'integer' }
+        age: { type: 'integer' },
+        group: { type: 'enum' }
       };
 
       validator = new Validator();
@@ -21,6 +22,14 @@ describe('validations', function() {
 
     it('should validate string type', function(done) {
       validator.validate({ name: 'foo bar' }, function(errors) {
+        assert(!errors);
+        done();
+      });
+    });
+
+    it('should validate enum type', function(done) {
+      validator.validate({ group: 'foo' }, function(errors) {
+        console.log(errors);
         assert(!errors);
         done();
       });
